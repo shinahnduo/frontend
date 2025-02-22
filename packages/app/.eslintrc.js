@@ -6,7 +6,8 @@ module.exports = {
     "eslint:recommended",
     "plugin:vue/vue3-recommended",
     "eslint-config-prettier",
-    "@vue/typescript/recommended"
+    "@vue/typescript/recommended",
+    "plugin:storybook/recommended"
   ],
   rules: {
     "vue/no-unused-vars": 0,

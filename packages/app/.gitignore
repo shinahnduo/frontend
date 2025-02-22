@@ -13,3 +13,4 @@ coverage
 .yarn
 components.d.ts
 imports.d.ts
+*storybook.log
