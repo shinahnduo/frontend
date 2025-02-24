@@ -15,6 +15,11 @@ export const routes = [
     component: () => import('@/pages/About.vue'),
   },
   {
+    name: 'Reader',
+    path: '/Reader',
+    component: () => import('@/pages/Reader.vue'),
+  },
+  {
     name: 'Terms of Use',
     path: '/terms-of-use',
     component: () => import('@/pages/TermsOfUse.vue'),
