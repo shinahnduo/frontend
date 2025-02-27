@@ -16,9 +16,7 @@
       <button class="icon-button">
         <IconUser />
       </button>
-      <button class="icon-button">
-        <IconBulletList />
-      </button>
+      <DropdownMenu class="content"/>
     </div>
   </div>
 </template>
@@ -37,10 +35,12 @@ import IconDotted from "@/components/icons/IconDotted.vue";
 import IconBookOpen from "@/components/icons/IconBookOpen.vue";
 import IconBulletList from "@/components/icons/IconBulletList.vue";
 import IconChapter from "@/components/icons/IconChapter.vue";
+import DropdownMenu from "@/components/page/reader/DropdownMenu.vue";
 
 export default defineComponent({
   name: 'HeaderComponent',
   components: {
+    DropdownMenu,
     IconChapter,
     IconBulletList,
     IconBookOpen,

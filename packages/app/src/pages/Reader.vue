@@ -16,10 +16,12 @@ import { defineComponent } from 'vue';
 import HeaderComponent from '../components/page/reader/FooterComponent.vue';
 import ContentComponent from '../components/page/reader/FooterComponent.vue';
 import FooterComponent from '../components/page/reader/FooterComponent.vue';
+import Test from "@/components/page/reader/DropdownMenu.vue";
 
 export default defineComponent({
   name: 'Reader',
   components: {
+    Test,
     HeaderComponent,
     ContentComponent,
     FooterComponent,
