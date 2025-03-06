@@ -62,13 +62,7 @@
               </p>
               <IconHelp class="w-6 h-6" />
             </button>
-            <button
-              class="flex text-gray-200 items-center text-lg rounded-full gap-2 transition-colors bg-gradient-to-br from-gray-900 to-gray-800 hover:from-gray-800 hover:to-gray-900 px-7 py-3.5 md:(px-8 py-4) shadow-xl transition-colors font-bold"
-              @click.prevent.stop="onClick"
-            >
-              {{ t('landing.first.editor.website') }}
-              <IconAccess class="w-6 h-6" />
-            </button>
+            <button @click="goToLogin" class="login-button">Login</button>
           </div>
           <a
             v-motion
@@ -138,14 +132,30 @@
   })
 
   tryOnUnmounted(() => {
-    plugin.emit('call-landing-unmounted')
-  })
+  plugin.emit('call-landing-unmounted')
+})
 
-  watch(isNecessaryLogin, (login) => {
-    if (login) {
-      setTimeout(() => {
-        plugin.emit('plugin-webgl-set-camera')
-      }, 0)
-    }
-  })
+const goToLogin = () => {
+  router.push('/login')
+}
+
+watch(isNecessaryLogin, (login) => {
+  if (login) {
+    setTimeout(() => {
+      plugin.emit('plugin-webgl-set-camera')
+    }, 0)
+  }
+})
 </script>
+
+<style scoped>
+.login-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+</style>

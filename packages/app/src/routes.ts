@@ -10,6 +10,21 @@ export const routes = [
     component: () => import('@/pages/Editor.vue'),
   },
   {
+    name: 'Main2',
+    path: '/main2',
+    component: () => import('@/pages/Main.vue'),
+  },
+  {
+    name: 'Login',
+    path: '/login',
+    component: () => import('@/pages/Login.vue'),
+  },
+  {
+    name: 'Detail',
+    path: '/detail/:id',
+    component: () => import('@/pages/Detail.vue'),
+  },
+  {
     name: 'About',
     path: '/about',
     component: () => import('@/pages/About.vue'),
