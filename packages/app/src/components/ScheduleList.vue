@@ -1,28 +1,31 @@
 <template>
-  <div class="schedule-list">
+  <div class="schedule-container">
     <h2>일정</h2>
 
-    <Accordion
-      v-for="(category, categoryIndex) in schedules"
-      :key="categoryIndex"
-      :title="category.title"
-      @remove="removeCategory(categoryIndex)"
-    >
+    <div class="schedule-list">
       <Accordion
-        v-for="(chapter, chapterIndex) in category.chapters"
-        :key="chapterIndex"
-        :title="chapter.title"
-        @remove="removeChapter(categoryIndex, chapterIndex)"
+        v-for="(category, categoryIndex) in schedules"
+        :key="categoryIndex"
+        :title="category.title"
+        @remove="removeCategory(categoryIndex)"
       >
-        <AccordionSubList
-          :items="chapter.subItems"
-          @add="addSubItem(categoryIndex, chapterIndex)"
-          @remove="removeSubItem(categoryIndex, chapterIndex, $event)"
-        />
+        <Accordion
+          v-for="(chapter, chapterIndex) in category.chapters"
+          :key="chapterIndex"
+          :title="chapter.title"
+          @remove="removeChapter(categoryIndex, chapterIndex)"
+        >
+          <AccordionSubList
+            :items="chapter.subItems"
+            @add="addSubItem(categoryIndex, chapterIndex)"
+            @remove="removeSubItem(categoryIndex, chapterIndex, $event)"
+          />
+        </Accordion>
+        <button class="add-button" @click="addChapter(categoryIndex)">+ 새로운 챕터 추가</button>
       </Accordion>
-      <button class="add-button" @click="addChapter(categoryIndex)">+ 새로운 챕터 추가</button>
-    </Accordion>
+    </div>
 
+    <!-- 하단 고정 버튼 -->
     <button class="create-button" @click="addCategory">새로운 일정 생성하기</button>
   </div>
 </template>
@@ -82,20 +85,41 @@ const removeSubItem = (categoryIndex: number, chapterIndex: number, subIndex: nu
 </script>
 
 <style scoped>
-.schedule-list {
+/* 전체 컨테이너 */
+.schedule-container {
+  width: 100%;
   max-width: 400px;
-  margin: 0 auto;
+  height: 740px; /* 고정 높이 */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #fff;
 }
+
+/* 스크롤 가능한 리스트 */
+.schedule-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-bottom: 60px; /* 버튼 영역만큼 여백 추가 */
+  -webkit-overflow-scrolling: touch; /* 모바일 터치 스크롤 지원 */
+}
+
+/* 하단 고정 버튼 */
 .create-button {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   background: black;
   color: white;
   font-size: 16px;
   border: none;
   cursor: pointer;
-  margin-top: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  max-width: 400px;
 }
+
+/* 챕터 추가 버튼 */
 .add-button {
   width: 100%;
   padding: 8px;
