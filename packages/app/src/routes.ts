@@ -14,6 +14,12 @@ export const routes = [
     path: '/about',
     component: () => import('@/pages/About.vue'),
   },
+  { path: "/detail/:id", 
+    component: () => import('@/pages/SubItemDetail.vue'), 
+  },
+  { path: "/read/:id",
+    component: () => import('@/pages/ReadDetail.vue'),
+  },
   {
     name: 'Reader',
     path: '/Reader',
