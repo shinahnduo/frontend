@@ -27,7 +27,7 @@
     <!-- 하단 버튼 -->
     <div class="footer">
       <button class="gray-button">임시저장</button>
-      <button class="white-button">작성 취소</button>
+      <button class="white-button" @click="goBack">작성 취소</button>
       <button class="black-button">다음 단계</button>
       <button class="blue-button">끝내기</button>
     </div>
@@ -35,7 +35,15 @@
 </template>
 
 <script lang="ts" setup>
+import { useRouter } from "vue-router";
 import Header from "@/components/Header.vue";
+
+const router = useRouter();
+
+// 이전 페이지로 이동
+const goBack = () => {
+  router.go(-1);
+};
 </script>
 
 <style scoped>
@@ -103,7 +111,7 @@ import Header from "@/components/Header.vue";
 }
 .ai-content-box {
   width: 100%;
-  height: 240px; 
+  height: 240px;
   padding: 12px;
   background: #f0f0f0;
   border-radius: 4px;

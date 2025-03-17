@@ -1,11 +1,11 @@
 <template>
   <div class="accordion">
     <!-- 제목 & 아이콘 -->
-    <div class="header" @click="toggle">
-      <h3>{{ title }}</h3>
+    <div class="header">
+      <EditableTitle :title="title" @update:title="updateTitle" />
       <div class="actions">
         <button @click.stop="onRemove">🗑️</button>
-        <span>{{ isOpen ? '▲' : '▼' }}</span>
+        <span @click="toggle">{{ isOpen ? '▲' : '▼' }}</span>
       </div>
     </div>
 
@@ -20,11 +20,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, defineProps, defineEmits } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref, defineProps, defineEmits } from "vue";
+import { useRouter } from "vue-router";
+import EditableTitle from "@/components/EditableTitle.vue";
 
-defineProps<{ title: string }>();
-const emit = defineEmits(['remove']);
+const props = defineProps<{ title: string }>();
+const emit = defineEmits(["update:title", "remove"]);
 
 const isOpen = ref(false);
 const router = useRouter();
@@ -34,12 +35,17 @@ const toggle = () => {
 };
 
 const onRemove = () => {
-  emit('remove');
+  emit("remove");
+};
+
+// 제목 업데이트
+const updateTitle = (newTitle: string) => {
+  emit("update:title", newTitle);
 };
 
 // 읽기 버튼 클릭 시 이동
 const navigateToRead = () => {
-  router.push(`/read/1`); // 고유 ID가 필요하면 수정 가능
+  router.push(`/read/1`);
 };
 </script>
 
@@ -53,7 +59,6 @@ const navigateToRead = () => {
 .header {
   background: #f8f8f8;
   padding: 10px;
-  cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
