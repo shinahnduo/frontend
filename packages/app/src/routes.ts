@@ -7,7 +7,7 @@ export const routes = [
   {
     name: 'Main',
     path: '/main',
-    component: () => import('@/pages/Editor.vue'),
+    component: () => import('@/pages/Home.vue'),
   },
   {
     name: 'About',
