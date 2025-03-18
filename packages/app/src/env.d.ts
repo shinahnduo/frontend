@@ -37,7 +37,8 @@ interface ImportMetaEnv {
   readonly VITE_UNLIMITED_LIMIT: number
 
   readonly VITE_LIVEBLOCKS_PUBLIC: string
-  readonly VITE_LIVEBLOCKS_SECRET: string
+  readonly VITE_LIVEBLOCKS_SECRET: string,
+  readonly VITE_GROK_API_KEY: string
 }
 
 interface ImportMeta {
