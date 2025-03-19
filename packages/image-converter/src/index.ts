@@ -63,41 +63,45 @@ export const getFileOrBlobResult = (
   file: File | Blob,
 ): Promise<ImageFileRawReturn> => {
   return new Promise((res, rej) => {
-    const reader = new FileReader()
+    const reader = new FileReader();
 
-    const isSvg = file.name.endsWith('.svg')
+    // ✅ file이 File인지 확인 후 .name 접근
+    const isSvg = file instanceof File && file.name.endsWith(".svg");
 
     if (isSvg) {
-      reader.readAsText(file)
+      reader.readAsText(file);
     } else {
-      reader.readAsDataURL(file)
+      reader.readAsDataURL(file);
     }
 
     reader.onload = async () => {
-      if (!isImageExtension(file.name) || !reader.result) {
-        rej()
-        return
+      // ✅ file이 File인지 확인 후 .name 체크
+      if (!(file instanceof File) || !isImageExtension(file.name) || !reader.result) {
+        rej();
+        return;
       }
 
       const raw = isSvg
         ? await ImageToForcePNG({
-            raw: reader.result as string,
-            width: 2000 as number,
-            height: 2000 as number,
-          })
-        : (reader.result as string)
+          raw: reader.result as string,
+          width: 2000,
+          height: 2000,
+        })
+        : (reader.result as string);
 
       res({
         raw,
-        fileName: file.name,
-        fileSize: file.size,
-      })
-    }
+        fileName: file.name, // ✅ file이 File인지 확인했으므로 안전
+        fileSize: file.size, // ✅ file이 File인지 확인했으므로 안전
+      });
+    };
+
     reader.onerror = function () {
-      rej()
-    }
-  })
-}
+      rej();
+    };
+  });
+};
+
 
 export const getImageFileRaw = (
   options?: ImageFileRawOptions,

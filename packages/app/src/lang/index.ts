@@ -1,14 +1,14 @@
 import { createI18n } from 'vue-i18n'
-import { ptBR, enUS, koKR, VueI18nLocales } from 'better-write-languages'
+// import { ptBR, enUS, koKR, VueI18nLocales } from 'better-write-languages'
+import messages from '@intlify/unplugin-vue-i18n/messages';
+import enUS from "@/lang/en-US";
 
 export default createI18n({
   legacy: false,
   locale: 'en',
   fallbackLocale: 'en',
-  locales: VueI18nLocales,
+  globalInjection: true,
   messages: {
-    en: enUS.default,
-    ko: koKR.default,
-    br: ptBR.default,
+    en: enUS,
   },
 })
