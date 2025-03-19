@@ -5,7 +5,7 @@ import fg from 'fast-glob'
 import vue from "@vitejs/plugin-vue"
 import vueGlobalComponent  from "unplugin-vue-components/vite"
 import { HeadlessUiResolver } from "unplugin-vue-components/resolvers"
-import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
+import vueI18n from "@intlify/vite-plugin-vue-i18n"
 import { VitePWA as vitePWA } from 'vite-plugin-pwa'
 import viteAutoImport from 'unplugin-auto-import/vite'
 import { SchemaOrg as viteSchemaOrg } from '@vueuse/schema-org-vite'
@@ -32,7 +32,7 @@ export default ({ mode }) => {
       },
     },
     optimizeDeps: {
-      include: ['buffer', 'process','es5-ext/global']
+      include: ['buffer', 'process']
     },
     define: {
       __VUE_I18N_FULL_INSTALL__: true,
@@ -42,9 +42,10 @@ export default ({ mode }) => {
     },
     plugins: [
       vue(),
-      VueI18nPlugin({
+      vueI18n({
         include: resolve(dirname(fileURLToPath(import.meta.url)), "./src/lang/**"),
         runtimeOnly: false,
+        compositionOnly: false
       }),
       vueGlobalComponent({
         dts: true,
