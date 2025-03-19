@@ -69,6 +69,10 @@ export const useEnv = () => {
     return import.meta.env.DEV
   }
 
+  const grokApiKey = () => {
+    return import.meta.env.VITE_GROK_API_KEY
+  }
+
   const getAccountPlanLimit = (plan: AccountPlan) => {
     switch (plan) {
       case 'beginner':
@@ -101,5 +105,6 @@ export const useEnv = () => {
     packageVersion,
     isDev,
     getAccountPlanLimit,
+    grokApiKey,
   }
 }

@@ -89,6 +89,7 @@
     "nanoid": "4.0.2",
     "nprogress": "0.2.0",
     "ohmyfetch": "0.4.21",
+    "openai": "^4.87.4",
     "pinia": "2.1.4",
     "three": "0.155.0",
     "vue": "3.3.4",
