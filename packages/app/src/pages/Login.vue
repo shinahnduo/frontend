@@ -1,20 +1,32 @@
 <!-- filepath: /c:/aiProject/betterwrite/packages/app/src/pages/Login.vue -->
 <template>
   <div class="login-container">
+    <head>
+      <meta name="google-signin-client_id" content="1045727623358-sqvh3fmk4n77ju9qbbpapjffg46tktsp.apps.googleusercontent.com">
+      <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://apis.google.com">
+    </head>
     <h2>Login</h2>
     <form @submit.prevent="onSubmit">
-      <input v-model="email" type="email" placeholder="Email" required />
+      <input v-model="email" placeholder="Email" required />
       <input v-model="password" type="password" placeholder="Password" required />
       <button type="submit">Login</button>
     </form>
     <div id="g-signin2" class="g-signin2"></div>
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+    <button @click="goToSignup" class="signup-button">회원가입</button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+
+declare global {
+  interface Window {
+    onGoogleSignIn: (googleUser: any) => void;
+    gapi: any;
+  }
+}
 
 const email = ref('')
 const password = ref('')
@@ -23,20 +35,12 @@ const router = useRouter()
 
 const onSubmit = async () => {
   const data = {
-    author_id: "admin",
-    created_at: "2025-03-05", // Use ISO 8601 format for datetime
-    email: email.value,
-    login_id: "admin",
+    login_id: email.value,
     password: password.value,
-    phone: "01047272664",
-    updated_at: "2025-03-05", // Use ISO 8601 format for datetime
-    user_id: "2",
-    user_name: "테스트",
-    description: "Some description"
   };
 
   try {
-    const response = await fetch('http://127.0.0.1:8000/test/add_to_firebase', {
+    const response = await fetch('http://127.0.0.1:8000/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -47,7 +51,7 @@ const onSubmit = async () => {
     if (response.ok) {
       const responseData = await response.json();
       console.log('Success:', responseData);
-      router.push('/main');
+      router.push('/main2');
     } else {
       throw new Error('Network response was not ok.');
     }
@@ -57,40 +61,37 @@ const onSubmit = async () => {
   }
 }
 
-const onGoogleSignIn = (googleUser) => {
+const onGoogleSignIn = (googleUser: any) => {
   const profile = googleUser.getBasicProfile();
   console.log('ID: ' + profile.getId());
   console.log('Name: ' + profile.getName());
   console.log('Image URL: ' + profile.getImageUrl());
   console.log('Email: ' + profile.getEmail());
 
-  // 서버로 토큰을 보내서 인증을 처리할 수 있습니다.
-  const id_token = googleUser.getAuthResponse().id_token;
-  fetch('http://127.0.0.1:8000/auth/google', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ token: id_token })
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log('Success:', data);
-    router.push('/main');
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    errorMessage.value = 'Google login failed. Please try again.';
-  });
+  // 여기서 서버로 토큰을 보내지 않고 프론트엔드에서 직접 처리합니다.
+  // 예를 들어, 사용자 정보를 로컬 스토리지에 저장하거나 상태를 업데이트합니다.
+  localStorage.setItem('googleUser', JSON.stringify({
+    id: profile.getId(),
+    name: profile.getName(),
+    imageUrl: profile.getImageUrl(),
+    email: profile.getEmail()
+  }));
+
+  // 로그인 성공 후 메인 페이지로 이동합니다.
+  router.push('/main');
+}
+
+const goToSignup = () => {
+  router.push('/signup');
 }
 
 onMounted(() => {
   window.onGoogleSignIn = onGoogleSignIn;
-  gapi.load('auth2', () => {
-    gapi.auth2.init({
-      client_id: '443248964813-eg3it5v3187pvn9p890tkht4uiqf7e4v.apps.googleusercontent.com'
+  window.gapi.load('auth2', () => {
+    window.gapi.auth2.init({
+      client_id: '1045727623358-sqvh3fmk4n77ju9qbbpapjffg46tktsp.apps.googleusercontent.com'
     }).then(() => {
-      gapi.signin2.render('g-signin2', {
+      window.gapi.signin2.render('g-signin2', {
         scope: 'profile email',
         width: 240,
         height: 50,
@@ -147,5 +148,10 @@ button {
 .error {
   color: red;
   margin-top: 10px;
+}
+
+.signup-button {
+  margin-top: 20px;
+  background-color: #28a745;
 }
 </style>

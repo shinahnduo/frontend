@@ -20,6 +20,11 @@ export const routes = [
     component: () => import('@/pages/Login.vue'),
   },
   {
+    name: 'SignUp',
+    path: '/signup',
+    component: () => import('@/pages/Signup.vue'),
+  },
+  {
     name: 'Detail',
     path: '/detail/:id',
     component: () => import('@/pages/Detail.vue'),
