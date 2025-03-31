@@ -12,19 +12,18 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
-import HeaderComponent from '../components/page/FooterComponent.vue';
-import ContentComponent from '../components/page/FooterComponent.vue';
-import FooterComponent from '../components/page/FooterComponent.vue';
+import HeaderComponent from '../components/page/reader/HeaderComponent.vue';
+import ContentComponent from '../components/page/reader/ContentComponent.vue';
+import FooterComponent from '../components/page/reader/FooterComponent.vue';
 
-export default defineComponent({
+export default {
   name: 'Reader',
   components: {
     HeaderComponent,
     ContentComponent,
-    FooterComponent,
-  },
-});
+    FooterComponent
+  }
+}
 </script>
 
 <style scoped>

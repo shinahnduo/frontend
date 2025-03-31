@@ -31,34 +31,20 @@
   </div>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
+<script setup>
 import { useRouter } from 'vue-router'
-import Header from '@/components/Header.vue'
+import Header from '@/components/page/Header.vue'
 
-export default defineComponent({
-  name: 'ReadDetail',
-  components: {
-    Header
-  },
-  setup() {
-    const router = useRouter()
+const router = useRouter()
 
-    const goBack = () => {
-      router.go(-1)
-    }
+const goBack = () => {
+  router.go(-1)
+}
 
-    const handleSave = () => {
-      // 저장 로직 구현
-      console.log('저장 기능 구현 예정')
-    }
-
-    return {
-      goBack,
-      handleSave
-    }
-  }
-})
+const handleSave = () => {
+  // 저장 로직 구현
+  console.log('저장 기능 구현 예정')
+}
 </script>
 
 <style scoped>

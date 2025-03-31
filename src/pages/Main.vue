@@ -41,30 +41,31 @@
 </template>
 
 <script>
-import { defineComponent, ref, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import IconHeart from '@/components/icons/IconHeart.vue'
+import IconMenu from '@/components/icons/IconMenu.vue'
+import IconHome from '@/components/icons/IconHome.vue'
+import IconSearch from '@/components/icons/IconSearch.vue'
+import IconBook from '@/components/icons/IconBook.vue'
+import IconSettings from '@/components/icons/IconSettings.vue'
 
-export default defineComponent({
+export default {
   name: 'Main',
+  components: {
+    IconHeart,
+    IconMenu,
+    IconHome,
+    IconSearch,
+    IconBook,
+    IconSettings
+  },
   setup() {
     const router = useRouter()
     const searchQuery = ref('')
     const items = ref([
-      { 
-        id: 1, 
-        title: 'Item 1', 
-        subtitle: 'Subtitle 1', 
-        tags: ['tag1', 'tag2'], 
-        image: 'path/to/image1.jpg' 
-      },
-      { 
-        id: 2, 
-        title: 'Item 2', 
-        subtitle: 'Subtitle 2', 
-        tags: ['tag3', 'tag4'], 
-        image: 'path/to/image2.jpg' 
-      },
-      // 더 많은 아이템 추가
+      { id: 1, title: 'Item 1', subtitle: 'Subtitle 1', tags: ['tag1', 'tag2'], image: 'path/to/image1.jpg' },
+      { id: 2, title: 'Item 2', subtitle: 'Subtitle 2', tags: ['tag3', 'tag4'], image: 'path/to/image2.jpg' }
     ])
 
     const filteredItems = computed(() => {
@@ -79,12 +80,11 @@ export default defineComponent({
 
     return {
       searchQuery,
-      items,
       filteredItems,
       goToDetail
     }
   }
-})
+}
 </script>
 
 <style scoped>
@@ -127,17 +127,15 @@ export default defineComponent({
 
 .filter-container {
   display: flex;
-  justify-content: space-around;
+  gap: 8px;
   padding: 16px;
-  background-color: #f9f9f9;
 }
 
 .filter-button {
   padding: 8px 16px;
-  border: none;
-  background-color: #007bff;
-  color: white;
+  border: 1px solid #ccc;
   border-radius: 4px;
+  background: none;
   cursor: pointer;
 }
 
@@ -145,19 +143,22 @@ export default defineComponent({
   flex: 1;
   overflow-y: auto;
   padding: 16px;
+  list-style: none;
 }
 
 .item {
   display: flex;
-  align-items: center;
+  gap: 16px;
   padding: 16px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
 }
 
 .item-image {
-  width: 50px;
-  height: 50px;
-  margin-right: 16px;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
 }
 
 .item-content {
@@ -165,12 +166,12 @@ export default defineComponent({
 }
 
 .item-title {
-  font-size: 18px;
-  font-weight: bold;
+  margin: 0 0 8px 0;
+  font-size: 16px;
 }
 
 .item-subtitle {
-  font-size: 14px;
+  margin: 0 0 8px 0;
   color: #666;
 }
 
@@ -180,8 +181,8 @@ export default defineComponent({
 }
 
 .tag {
-  background-color: #e0e0e0;
   padding: 4px 8px;
+  background-color: #f0f0f0;
   border-radius: 4px;
   font-size: 12px;
 }
@@ -191,12 +192,14 @@ export default defineComponent({
   justify-content: space-around;
   padding: 16px;
   background-color: #f1f1f1;
+  border-top: 1px solid #ddd;
 }
 
 .nav-button {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 4px;
   background: none;
   border: none;
   cursor: pointer;

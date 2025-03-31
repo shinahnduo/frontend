@@ -41,7 +41,7 @@
 import { defineComponent, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import OpenAI from 'openai'
-import Header from '@/components/Header.vue'
+import Header from '@/components/page/reader/HeaderComponent.vue'
 import { useEnv } from '../env.js'
 
 export default defineComponent({

@@ -33,13 +33,11 @@ export const routes = [
     name: 'Main',
     path: '/main',
     component: () => import('@/pages/Home.vue'),
-    meta: { requiresAuth: true }, // 인증이 필요한 페이지
   },
   {
     name: 'Main2',
     path: '/main2',
     component: () => import('@/pages/Main.vue'),
-    meta: { requiresAuth: true }, // 인증이 필요한 페이지
   },
   {
     name: 'Login',
@@ -55,7 +53,6 @@ export const routes = [
     name: 'Detail',
     path: '/detail/:id',
     component: () => import('@/pages/Detail.vue'),
-    meta: { requiresAuth: true }, // 인증이 필요한 페이지
   },
   {
     name: 'About',
@@ -65,7 +62,6 @@ export const routes = [
   {
     path: '/detail/:id',
     component: () => import('@/pages/SubItemDetail.vue'),
-    meta: { requiresAuth: true }, // 인증이 필요한 페이지
   },
   {
     path: '/read/:id',
@@ -76,7 +72,6 @@ export const routes = [
     name: 'Reader',
     path: '/Reader',
     component: () => import('@/pages/Reader.vue'),
-    meta: { requiresAuth: true }, // 인증이 필요한 페이지
   },
   {
     name: 'Terms of Use',
